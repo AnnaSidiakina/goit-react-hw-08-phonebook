@@ -24,7 +24,7 @@ import { useEffect } from 'react';
 
 const App = () => {
   const token = useSelector(state => state.user.token);
-  const { refetch, isFetching } = useGetCurrentUserQuery(token);
+  const { refetch } = useGetCurrentUserQuery(token);
 
   useEffect(() => {
     refetch();
