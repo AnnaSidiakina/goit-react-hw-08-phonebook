@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-export const Appbar = () => {
+const Appbar = () => {
   const { isLoggedIn } = useSelector(state => state.user);
   return (
     <Container component="header">
@@ -21,9 +21,20 @@ export const Appbar = () => {
             px: 4,
           }}
         >
-          <Button component={NavLink} to="/" sx={{ my: 2, color: 'white' }}>
-            Home
-          </Button>
+          <Box sx={{ display: 'flex' }}>
+            <Button component={NavLink} to="/" sx={{ my: 2, color: 'white' }}>
+              Home
+            </Button>
+            {isLoggedIn && (
+              <Button
+                component={NavLink}
+                to="/contacts"
+                sx={{ my: 2, color: 'white' }}
+              >
+                Contacts
+              </Button>
+            )}
+          </Box>
 
           {!isLoggedIn && (
             <Box sx={{ display: 'flex' }}>
@@ -50,3 +61,4 @@ export const Appbar = () => {
     </Container>
   );
 };
+export default Appbar;

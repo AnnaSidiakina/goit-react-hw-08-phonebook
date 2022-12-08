@@ -7,7 +7,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-// import { useSelector } from 'react-redux';
 
 export const ContactsListItem = ({ id, name, number }) => {
   const [deleteContact, { isLoading: isDeleting, isSuccess }] =
@@ -52,29 +51,3 @@ ContactsListItem.propTypes = {
   name: PropTypes.string.isRequired,
   number: PropTypes.string,
 };
-
-/* <Button
-        variant="contained"
-        color="error"
-        className={styles.button}
-        disabled={isDeleting}
-        onClick={handleClick}
-      > */
-
-/* <li className={styles.item}>
-  <span className={styles.text}>{name}</span>
-  <span className={styles.number}>{number}</span>
-  {!isDeleting && (
-    <DeleteIcon
-      sx={{
-        color: '#d32f2f',
-        ml: 4,
-        cursor: 'pointer',
-      }}
-      disabled={isDeleting}
-      onClick={handleClick}
-    />
-  )}
-
-  {isDeleting && <Loader size={'15'} color="#d32f2f" />}
-</li>; */

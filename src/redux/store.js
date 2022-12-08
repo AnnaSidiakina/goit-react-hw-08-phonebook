@@ -32,9 +32,6 @@ export const store = configureStore({
     user: persistedUserReducer,
     [contactsApi.reducerPath]: contactsApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
-
-    // contacts: contactsReducer,
-    // filter: filterReducer,
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware({

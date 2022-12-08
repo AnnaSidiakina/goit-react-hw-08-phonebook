@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <Box sx={{ padding: 8 }}>
       <Typography
@@ -17,4 +17,4 @@ export const HomePage = () => {
   );
 };
 
-// export default HomePage;
+export default HomePage;
