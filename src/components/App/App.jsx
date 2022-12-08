@@ -19,14 +19,18 @@ import { useSelector } from 'react-redux';
 
 import { useGetCurrentUserQuery } from 'redux/auth/authApi';
 // import { useGetContactsQuery } from 'redux/contacts/contactsApi';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 // import { useDispatch } from 'react-redux';
 
 const App = () => {
   const token = useSelector(state => state.user.token);
-  const { isFetching } = useGetCurrentUserQuery(token);
+  const { refetch, isFetching } = useGetCurrentUserQuery(token);
 
-  return !isFetching ? (
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  return (
     <Container
       component="div"
       maxWidth="md"
@@ -51,8 +55,6 @@ const App = () => {
       </Suspense>
       <ToastContainer delay={3000} position={'top-left'} />
     </Container>
-  ) : (
-    <Loader />
   );
 };
 
