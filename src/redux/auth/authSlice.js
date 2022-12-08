@@ -55,10 +55,10 @@ export const authSlice = createSlice({
       .addMatcher(
         authApi.endpoints.getCurrentUser.matchFulfilled,
         (state, { payload }) => {
-          const { user } = payload;
+          // const { user } = payload;
 
-          state.name = user.name;
-          state.email = user.email;
+          state.name = payload.name;
+          state.email = payload.email;
           state.isLoggedIn = true;
         }
       )

@@ -24,13 +24,13 @@ import { useEffect } from 'react';
 
 const App = () => {
   const token = useSelector(state => state.user.token);
-  const { refetch } = useGetCurrentUserQuery(token);
+  const { isFetching } = useGetCurrentUserQuery(undefined, { skip: !token });
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  // useEffect(() => {
+  //   refetch();
+  // }, [refetch]);
 
-  return (
+  return !isFetching ? (
     <Container
       component="div"
       maxWidth="md"
@@ -55,6 +55,8 @@ const App = () => {
       </Suspense>
       <ToastContainer delay={3000} position={'top-left'} />
     </Container>
+  ) : (
+    <Loader />
   );
 };
 
