@@ -40,16 +40,11 @@ const LoginPage = () => {
     const data = new FormData(e.currentTarget);
 
     const credentials = {
-      name: data.get('name'),
       email: data.get('email').trim(),
       password: data.get('password'),
     };
 
-    if (
-      credentials.name === '' ||
-      credentials.email === '' ||
-      credentials.password === ''
-    ) {
+    if (credentials.email === '' || credentials.password === '') {
       toast.error('Please, fill all the fields!');
     }
     login(credentials);
@@ -67,7 +62,7 @@ const LoginPage = () => {
       navigate('/contacts');
     }
     if (isError) {
-      toast.error('Wrong name or password');
+      toast.error('Wrong email or password');
     }
   });
 
