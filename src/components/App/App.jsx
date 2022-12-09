@@ -34,11 +34,7 @@ const App = () => {
           <Route path="/users/login" element={<LoginPage />} />
           <Route
             path="/contacts"
-            element={
-              <PrivateRoute>
-                <ContactsPage />
-              </PrivateRoute>
-            }
+            element={<PrivateRoute children={<ContactsPage />} />}
           ></Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

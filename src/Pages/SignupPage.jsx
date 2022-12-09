@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSignupUserMutation } from 'redux/auth/authApi';
 import { toast } from 'react-toast';
@@ -19,38 +19,29 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 const SignupPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const [signupUser, { isError }] = useSignupUserMutation();
   const navigate = useNavigate();
   const { isLoggedIn } = useSelector(state => state.user);
 
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'name':
-        return setName(value);
-      case 'email':
-        return setEmail(value);
-      case 'password':
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
-    const credentials = { name, email, password };
 
-    if (name === '' || email === '' || password === '') {
+    const data = new FormData(e.currentTarget);
+
+    const credentials = {
+      name: data.get('name'),
+      email: data.get('email').trim(),
+      password: data.get('password'),
+    };
+
+    if (
+      credentials.name === '' ||
+      credentials.email === '' ||
+      credentials.password === ''
+    ) {
       toast.error('Please, fill all the fields!');
     }
     signupUser(credentials);
-    navigate('/contacts');
-
-    reset();
   };
 
   useEffect(() => {
@@ -62,12 +53,6 @@ const SignupPage = () => {
       toast.error('Something went wrong, please, try again');
     }
   });
-
-  function reset() {
-    setName('');
-    setEmail('');
-    setPassword('');
-  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -103,7 +88,7 @@ const SignupPage = () => {
                   id="name"
                   label="Name"
                   autoFocus
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -114,7 +99,7 @@ const SignupPage = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -126,7 +111,7 @@ const SignupPage = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 />
               </Grid>
             </Grid>

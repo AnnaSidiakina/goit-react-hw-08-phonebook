@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from 'redux/auth/authApi';
 import { toast } from 'react-toast';
@@ -20,38 +20,54 @@ const theme = createTheme();
 const LoginPage = () => {
   const [login, { isError }] = useLoginUserMutation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
   const { isLoggedIn } = useSelector(state => state.user);
 
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'email':
-        return setEmail(value);
-      case 'password':
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
+  // const handleChange = ({ target: { name, value } }) => {
+  //   switch (name) {
+  //     case 'email':
+  //       return setEmail(value);
+  //     case 'password':
+  //       return setPassword(value);
+  //     default:
+  //       return;
+  //   }
+  // };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!email || !password) {
-      return;
+    const data = new FormData(e.currentTarget);
+
+    const credentials = {
+      name: data.get('name'),
+      email: data.get('email').trim(),
+      password: data.get('password'),
+    };
+
+    if (
+      credentials.name === '' ||
+      credentials.email === '' ||
+      credentials.password === ''
+    ) {
+      toast.error('Please, fill all the fields!');
     }
-    const credentials = { email, password };
     login(credentials);
-    // navigate('/contacts');
-    // reset();
   };
+  // if (!email || !password) {
+  //   return;
+  // }
+  // const credentials = { email, password };
+
+  // navigate('/contacts');
+  // reset();
 
   useEffect(() => {
-    if (isError) {
-      toast.error('Something went wrong, please, try again');
-    }
     if (isLoggedIn) {
       navigate('/contacts');
+    }
+    if (isError) {
+      toast.error('Wrong name or password');
     }
   });
 
@@ -93,7 +109,7 @@ const LoginPage = () => {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={handleChange}
+              // onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -104,7 +120,7 @@ const LoginPage = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
 
             <Button
